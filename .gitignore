@@ -1,0 +1,18 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.env
+archive.db
+
+# Logs
+*.log
+logs/
+
+# Models (optional)
+models/
+
+# Editors
+.vscode/
+.idea/
+*.ipynb_checkpoints/
