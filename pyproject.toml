@@ -1,0 +1,36 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "companion"
+version = "0.1.0"
+description = "A multi-agent voice companion system with long-term memory"
+authors = [{name = "Huang Shaotong", email = "206668465+AKASaturn@users.noreply.github.com"}]
+readme = "README.md"
+license = {text = "MIT"}
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
+requires-python = ">=3.9"
+dependencies = [
+    "fastapi",
+    "uvicorn",
+    "httpx",
+    "aiosqlite",
+    "jinja2",
+    "platformdirs",
+]
+
+[project.optional-dependencies]
+dev = ["pytest", "black", "mypy"]
+
+[project.urls]
+Homepage = "https://github.com/AKASaturn/companion"
+Repository = "https://github.com/AKASaturn/companion"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["companion*"]

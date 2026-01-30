@@ -1,0 +1,17 @@
+{
+  "agent": {
+    "id": "luna_001",
+    "name": "Luna",
+    "personality": "温柔"
+  },
+  "memory": {
+    "type": "SQLite",
+    "db_path": "agents.db",
+    "max_records": 1000
+  },
+  "llm": {
+    "type": "OpenAI",
+    "api_key": "your-api-key",
+    "model": "text-davinci-003"
+  }
+}
