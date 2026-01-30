@@ -3,10 +3,10 @@ requires = ["setuptools>=61.0", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "companion"
+name = "Memoria"
 version = "0.1.0"
 description = "A multi-agent voice companion system with long-term memory"
-authors = [{name = "Huang Shaotong", email = "206668465+AKASaturn@users.noreply.github.com"}]
+authors = [{name = "AGSaturn", email = "206668465+AGSaturn@users.noreply.github.com"}]
 readme = "README.md"
 license = {text = "MIT"}
 classifiers = [
@@ -16,21 +16,15 @@ classifiers = [
 ]
 requires-python = ">=3.9"
 dependencies = [
-    "fastapi",
-    "uvicorn",
-    "httpx",
-    "aiosqlite",
-    "jinja2",
-    "platformdirs",
+    "jinja2"
 ]
 
 [project.optional-dependencies]
-dev = ["pytest", "black", "mypy"]
+dev = ["pytest", "respx", "httpx"]
 
 [project.urls]
-Homepage = "https://github.com/AKASaturn/companion"
-Repository = "https://github.com/AKASaturn/companion"
+Repository = "https://github.com/AGSaturn/Memoria.git"
 
 [tool.setuptools.packages.find]
 where = ["."]
-include = ["companion*"]
+include = ["Memoria*"]

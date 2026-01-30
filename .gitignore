@@ -16,3 +16,7 @@ models/
 .vscode/
 .idea/
 *.ipynb_checkpoints/
+
+
+#Cache generated during packaging
+Memoria.egg-info/
