@@ -67,6 +67,20 @@ class MemoryManager:
         # TODO: 触发 summarization 逻辑（例如累计 N 条后生成 semantic 记忆）
         return episodic_id
 
+    async def add_semantic_memory(self, agent_id: str, content: str, metadata: str = "{}") -> int:
+        """
+        直接添加一条语义记忆（Archival Memory）。
+        会自动计算 embedding 并存入向量索引。
+        """
+        # 1. Insert into store
+        mem_id = await self.semantic_store.insert(agent_id, content, metadata)
+        
+        # 2. Compute embedding and index
+        embedding = await self.processor.embed(content)
+        self.vector_index.add(agent_id, "semantic", mem_id, embedding)
+        
+        return mem_id
+
     async def list_recent_memories(self, agent_id: str, limit: int = 10) -> List[dict]:
         """
         获取指定 agent 最近的 episodic 和 semantic 记忆列表（按时间倒序）。

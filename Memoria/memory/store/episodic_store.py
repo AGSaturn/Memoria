@@ -100,6 +100,43 @@ class EpisodicStore(BaseEpisodicStore):
         - 不允许修改 role 或 timestamp，仅更新 content
         """
         async with await self._get_conn() as db:
+            cursor = await db.execute(
+                "UPDATE episodic_memory SET content = ? WHERE id = ? AND agent_id = ?",
+                (new_content, mem_id, agent_id),
+            )
+            await db.commit()
+            return cursor.rowcount > 0
+
+    async def list_by_agent(self, agent_id: str, limit: int = 10) -> list:
+        async with await self._get_conn() as db:
+            rows = await db.execute_fetchall(
+                "SELECT id, content, role, timestamp FROM episodic_memory WHERE agent_id = ? ORDER BY id DESC LIMIT ?",
+                (agent_id, limit),
+            )
+            return [
+                dict(zip(["id", "content", "role", "timestamp"], row)) for row in rows
+            ]
+
+    async def search(self, agent_id: str, query: str) -> list:
+        async with await self._get_conn() as db:
+            rows = await db.execute_fetchall(
+                "SELECT id, content, role, timestamp FROM episodic_memory WHERE agent_id = ? AND content LIKE ? ORDER BY id DESC LIMIT 5",
+                (agent_id, f"%{query}%"),
+            )
+            return [
+                dict(zip(["id", "content", "role", "timestamp"], row)) for row in rows
+            ]
+
+    async def delete_by_id(self, agent_id: str, mem_id: int) -> bool:
+        async with await self._get_conn() as db:
+            cursor = await db.execute(
+                "DELETE FROM episodic_memory WHERE id = ? AND agent_id = ?",
+                (mem_id, agent_id),
+            )
+            await db.commit()
+            return cursor.rowcount > 0
+        """
+        async with await self._get_conn() as db:
             await db.execute(
                 "UPDATE episodic_memory SET content = ? WHERE id = ? AND agent_id = ?",
                 (new_content, mem_id, agent_id),
